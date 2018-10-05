@@ -172,6 +172,10 @@ in [ rule.Arguments { arguments =
    , warnSimple "(m >>= maybe x (const (return ())))"              "whenNothingM_ m x"
    , warnSimple "(m >>= maybe x (const (pass)     ))"              "whenNothingM_ m x"
 
+   -- case:whenLeft
+   , warnSimple "(either f (pure d) m)"                           "whenLeft d m f"
+   , warnSimple "(either f (\\d -> pure d    ) m)"                "whenLeft d m f"
+
    -- case:whenLeft_
    , warnSimple "(whenLeft ())"                                   "whenLeft_"
    , warnSimple "(case m of Left x -> f x; Right _ -> pure ()  )" "whenLeft_ m f"
